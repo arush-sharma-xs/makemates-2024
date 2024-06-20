@@ -21,9 +21,7 @@ function Page() {
   const [isFriend, setIsFriend] = useState<boolean>(false);
 
   useEffect(() => {
-    
     try {
-      
       const getUserProfile = async () => {
         const response = await axios.post(
           `${API_ENDPOINT}/search/profile`,
@@ -82,20 +80,29 @@ function Page() {
     }
   };
 
-
   if (user) {
     return (
       <div className="flex w-[1200px] justify-between items-center relative pl-4">
         <div className="fixed top-[100px] h-[600px] w-[300px] flex flex-col gap-4 p-2 shadow-md bg-slate-50 rounded-md">
           <div className="flex flex-col gap-2 items-center justify-center">
+          {user.image_url !== null ? (
+            <Image
+              src={user.image_url}
+              className="rounded-full shadow-lg border-2 border-blue"
+              width="100"
+              height="100"
+              alt="Profile pic"
+            />
+          ) : (
             <Image
               src="/avatar.png"
-              alt="user profile image"
-              width="120"
-              height="120"
-              className="rounded-full border-2 shadow-lg w-auto"
+              className="rounded-full"
+              width="40"
+              height="40"
+              alt="Profile pic"
             />
-            <span className="font-semibold">{user.name}</span>
+          )}
+          <span className="font-semibold">{user.name}</span>
             {isFriend ? (
               <Button
                 size={"sm"}

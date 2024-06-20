@@ -5,12 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Posts from "@/components/Posts";
 
-import { AiFillLike } from "react-icons/ai";
 import { BsMessenger } from "react-icons/bs";
-import { FaBookmark, FaUserFriends } from "react-icons/fa";
-import { TbHttpPost } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
-import FeedUploadBox from "./_components/FeedUploadBox";
 import { AuthContext } from "@/context/AuthContext";
 import useFriendList from "@/hooks/useFriendList";
 import {
@@ -25,8 +21,6 @@ function Page() {
   const friendsList = useFriendList();
 
   const { currentUser, setCurrentUser }: any = useContext(AuthContext);
-  // console.log(currentUser)
-
 
   useEffect(() => {
     const getUserData = async () => {
@@ -36,17 +30,17 @@ function Page() {
       window.localStorage.setItem("currentUser", JSON.stringify(data));
       setCurrentUser(data);
     };
-
     getUserData();
   }, [setCurrentUser]);
 
   useEffect(() => {
-    if(currentUser) {
+    if (currentUser) {
       const firstName = currentUser.name.split(" ")[0];
-      document.title = firstName + "'s feed"
+      document.title = firstName + "'s feed";
     }
-  }, [currentUser])
+  }, [currentUser]);
 
+  console.log("Friend List", friendsList);
   return currentUser ? (
     <>
       <div className="fixed top-[100px] w-[300px] flex flex-col gap-4">
@@ -71,7 +65,7 @@ function Page() {
 
           <div className="flex flex-col">
             <div className="font-semibold text-sm">{currentUser.name}</div>
-            {/* <div className="text-xs text-muted-foreground">GhostRider</div> */}
+            <div className="text-xs text-muted-foreground">GhostRider</div>
           </div>
         </div>
 
@@ -96,14 +90,16 @@ function Page() {
 
       <div className="w-[300px] fixed top-[100px] ml-[870px]  rounded-md h-[500px] overflow-y-auto">
         <div>
-          <h4 className="font-semibold text-sky-900">Followers :</h4>
+          <h4 className="font-semibold text-sky-900">Followers:</h4>
           <div className="flex bg-slate-50 gap-2 shadow-md rounded-md flex-col mt-2 w-full ">
-            
             {friendsList.length > 0 ? (
               friendsList.map((friend: any) => {
                 return (
                   <HoverCard key={`${friend.follow_id}-${friend.follower_id}`}>
-                    <HoverCardTrigger className="flex items-center rounded-md" asChild >
+                    <HoverCardTrigger
+                      className="flex items-center rounded-md"
+                      asChild
+                    >
                       <div className="flex justify-between items-center p-2 w-full rounded-mdcursor-pointer">
                         <div className="flex gap-2 items-center">
                           {friend.profileImage !== null ? (

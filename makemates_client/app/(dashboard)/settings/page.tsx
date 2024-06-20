@@ -33,11 +33,11 @@ function Page() {
 
   return (
     <div className="w-full flex justify-center bg-slate-200 rounded-md shadow-lg">
-      <div className="w-[500px] ">
+      <div className="w-[500px]">
         <div className="flex justify-center my-4">
-          {currentUser.img !== null ? (
+          {currentUser.image_url !== null ? (
             <Image
-              src={currentUser.img}
+              src={currentUser.image_url}
               className="rounded-full shadow-md"
               width="100"
               height="100"
